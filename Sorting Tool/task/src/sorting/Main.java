@@ -1,20 +1,23 @@
 package sorting;
 
-import com.beust.jcommander.JCommander;
-
 import java.util.*;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
-    private static CommandLineArgs jArgs;
 
     public static void main(final String[] args) {
-        jArgs = new CommandLineArgs();
-        JCommander jCommander = JCommander.newBuilder()
-                .addObject(jArgs)
-                .build();
-        jCommander.parse(args);
-        switch (jArgs.getType()) {
+        String dataType = "word";
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-sortIntegers")) {
+                sortIntegers();
+                return;
+            }
+            if (args[i].equals("-dataType")) {
+                dataType = args[i + 1];
+            }
+        }
+        switch (dataType) {
             case "long" -> sortLong();
             case "line" -> sortLine();
             default -> sortWord();
@@ -68,6 +71,21 @@ public class Main {
         double percentage = (double) times / lines.size() * 100;
         System.out.printf("Total lines: %d.\n", lines.size());
         System.out.printf("The longest line:\n%s\n(%d time(s), %d).", longest, times, Math.round(percentage));
+    }
+
+    public static void sortIntegers() {
+        List<Long> numbers = new ArrayList<>();
+        while (scanner.hasNextLong()) {
+            long number = scanner.nextLong();
+            numbers.add(number);
+        }
+        Collections.sort(numbers);
+        System.out.printf("Total numbers: %d.\n", numbers.size());
+        System.out.print("Sorted data: ");
+        for (long number : numbers) {
+            System.out.print(number + " ");
+        }
+
     }
 
     public static void sortLong() {
