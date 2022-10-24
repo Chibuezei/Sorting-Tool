@@ -1,12 +1,19 @@
 package sorting;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SortLine {
-    private static final Scanner scanner = new Scanner(System.in);
     static List<String> lines;
 
-    public static void run(String mode) {
+    public static void run(String mode, String input) throws FileNotFoundException {
+        Scanner scanner;
+        if (input != null) {
+            System.setIn(new FileInputStream(input));
+        }
+        scanner = new Scanner(System.in);
+
         lines = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();

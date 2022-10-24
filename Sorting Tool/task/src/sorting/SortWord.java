@@ -1,12 +1,19 @@
 package sorting;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SortWord {
-    private static final Scanner scanner = new Scanner(System.in);
     static List<String> words;
 
-    public static void run(String mode) {
+    public static void run(String mode , String input) throws FileNotFoundException {
+        Scanner scanner;
+        if (input != null) {
+            System.setIn(new FileInputStream(input));
+        }
+        scanner = new Scanner(System.in);
+
         words = new ArrayList<>();
         while (scanner.hasNext()) {
             String word = scanner.next();

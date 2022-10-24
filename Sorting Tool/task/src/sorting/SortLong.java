@@ -1,12 +1,19 @@
 package sorting;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SortLong {
-    private static final Scanner scanner = new Scanner(System.in);
     static List<Long> numbers;
 
-    public static void run(String mode) {
+    public static void run(String mode, String input) throws FileNotFoundException {
+        Scanner scanner;
+        if (input != null) {
+            System.setIn(new FileInputStream(input));
+        }
+        scanner = new Scanner(System.in);
+
         numbers = new ArrayList<>();
         while (scanner.hasNextLong()) {
             long number = scanner.nextLong();
@@ -29,7 +36,6 @@ public class SortLong {
     public static void sortLongByCount() {
         System.out.printf("Total numbers: %d.\n", numbers.size());
         Collections.sort(numbers);
-//        System.out.println(numbers);
         numbers.sort((n1, n2) -> {
             if (Collections.frequency(numbers, n1) > Collections.frequency(numbers, n2)) {
                 return 1;
@@ -39,10 +45,8 @@ public class SortLong {
             }
             return 0;
         });
-//        System.out.println(numbers);
         Set<Long> set = new LinkedHashSet<>(numbers);
 
-//        System.out.println(numbers);
         long times;
         double percentage;
         for (long number : set) {
